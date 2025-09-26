@@ -1,11 +1,15 @@
-import express from 'express'
-const app = express()
-const port = 3000
+import express from 'express';
+import dotenv from 'dotenv';
+import apiRoutes from './src/routes/api.js';
 
-app.get('/', (req, res) => {
-  res.send('Hello World!')
-})
+dotenv.config();
+
+const app = express();
+const port = process.env.PORT || 3000;
+
+app.use(express.json());
+app.use('/', apiRoutes);
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+  console.log(`Server running in ${process.env.NODE_ENV || 'development'} mode on port ${port}`);
+});

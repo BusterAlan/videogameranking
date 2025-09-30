@@ -1,5 +1,6 @@
 import { SQLiteDataSource } from './SQLiteDataSource.js';
 import { MockDataSource } from './MockDataSource.js';
+import { FirebaseDataSource } from './FirebaseDataSource.js';
 
 export class DataSourceFactory {
   static getDataSource() {
@@ -21,7 +22,7 @@ export class DataSourceFactory {
           dataSource = new SQLiteDataSource();
           console.log('\x1b[32m%s\x1b[0m', '✅ Usando SQLite en memoria para desarrollo');
         } else {
-          throw new Error('Tipo de base de datos no soportada para desarrollo');
+          dataSource = new FirebaseDataSource();
         }
         break;
       case 'production':

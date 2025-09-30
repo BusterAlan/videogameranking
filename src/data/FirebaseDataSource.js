@@ -1,6 +1,9 @@
 import { DataSource } from './DataSource.js';
 import admin from 'firebase-admin';
-import serviceAccount from '../../firebaseServiceAccount.json' assert { type: 'json' };
+
+const serviceAccount = process.env.FIREBASE_SERVICE_ACCOUNT 
+  ? JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT)
+  : await import('../../firebaseServiceAccount.json', { assert: { type: 'json' } }).then(m => m.default);
 
 if (!admin.apps.length) {
   admin.initializeApp({
